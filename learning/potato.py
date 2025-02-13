@@ -3,7 +3,7 @@ import pygame
 class Potato(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.image = pygame.image.load("potato.png").convert_alpha()
+        self.image = pygame.image.load("thisguy.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=(x, y))
         self.dir = 0
 
