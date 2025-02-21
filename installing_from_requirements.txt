@@ -1,6 +1,0 @@
-idk how much you know about all of this but
-1. create the virtual environment with python 3.13 (if you haven't already, just use  python3 -m venv .venv to create it)
-2. load the virtual environment ( .venv/Scripts/activate.bat and then .venv/Scripts/activate )
-3. run  pip install -r requirements.txt
-it'll install all of the required libraries (pygame only at the moment)
-if you add libraries you can use  pip freeze > requirements.txt
