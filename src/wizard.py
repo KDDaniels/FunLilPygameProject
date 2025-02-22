@@ -1,10 +1,12 @@
 import pygame
 from .character import Character
+from src.data import rects
 
 class Wizard(Character):
     def __init__(self, char, x=0, y=0, movement_speed=5, movement_step=20):
         super().__init__(char=char)
         self.image = pygame.image.load("resources/images/characters/Hat.png").convert_alpha()
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect(topleft=(x, y))
 
         self.angle = 0
@@ -16,10 +18,22 @@ class Wizard(Character):
         self.target_x = self.rect.x
         self.target_y = self.rect.y
 
+        self.old_target_x = self.target_x
+        self.old_target_y = self.target_y
+
+    def check_for_collisions(self):
+        for obj in rects:
+            if self.rect.colliderect(obj):
+                return True
+        return False
+            
+
     def update(self):
         # checking keys pressed
         keys = pygame.key.get_pressed()
         if self.target_x == self.rect.x and self.target_y == self.rect.y:
+            self.old_target_x = self.target_x
+            self.old_target_y = self.target_y
             if keys[pygame.K_LEFT]:
                 self.target_x = self.rect.x - self.movement_step
                 self.angle = 270
@@ -35,6 +49,17 @@ class Wizard(Character):
             elif keys[pygame.K_DOWN]:
                 self.target_y = self.rect.y + self.movement_step
                 self.angle = 180
+
+        
+        if self.target_x != self.rect.x or self.target_y != self.rect.y:
+            if self.check_for_collisions():
+                self.target_x = self.old_target_x
+                self.target_y = self.old_target_y
+
+        
+        
+
+        
 
         # lerping
         if self.rect.x < self.target_x:
