@@ -2,7 +2,10 @@
 
 import pygame
 from src.wizard import Wizard
+from src.game_manager import GameManager
 from src.data import rects
+from resources.animations.TrumpetAnimation import Animation
+from src.button import Button
 
 BLACK = (0, 0, 0)
 WHITE = (200, 200, 200)
@@ -17,7 +20,15 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(SCREEN_SIZE)
 
+    a = Animation(screen)
+    a.test()
+
     bg = pygame.image.load("resources/images/backgrounds/Background.jpg").convert()
+
+    btn1 = Button(10, 20, 100, 50, screen, "test", lambda: print("oi"))
+    btn2 = Button(40, 20, 100, 100, screen, "button", lambda: print("test"))
+
+    btnList = [btn1, btn2]
     
 
     pc = Wizard("Hat", 0,0, 5, 100)
@@ -48,6 +59,9 @@ def main():
         
         sprites.update()
         sprites.draw(screen)
+
+        for btn in btnList:
+            btn.update()
 
         pygame.display.flip()
 
